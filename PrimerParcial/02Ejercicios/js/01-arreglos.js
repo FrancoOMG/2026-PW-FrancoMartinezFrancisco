@@ -22,11 +22,21 @@ console.log(nombres);
 
 console.log("Aplicando la función Filter en los talleres")
 const llenos = talleres.filter((t) => t.inscritos >= t.cupo);
-console.log(llenos.map((t)=> t.nombre))
+console.log(llenos.map((t)=> t.nombre));
 
 
 // TODO: find — encuentra el PRIMER taller impartido por 'Ing. María López'
+console.log("Aplicando la funcion find para encontrar el primer talller impartido por Ing. María López")
+const primerTallerMaria = talleres.find((t) => t.instructor === "Ing. María López");
+console.log(primerTallerMaria);
 
 // TODO: reduce — calcula `totalInscritos`, la suma de inscritos de todos los talleres
+console.log("Aplicando reduce para calcular total inscritos")
+const totalinscritos = talleres.reduce((acum, t) => acum + t.inscritos, 0);
+console.log(`Total de inscritos: ${totalinscritos}`);
 
 // TODO: filter + map encadenados — nombres de los talleres que SÍ tienen cupo disponible
+console.log("Aplicando filter + map encadenados para talleres con cupo disponible")
+const talleresdisponibles =  talleres.filter ((t) => t.inscritos < t.cupo)
+                                     .map((t) => t.nombre);
+console.log(talleresdisponibles);
