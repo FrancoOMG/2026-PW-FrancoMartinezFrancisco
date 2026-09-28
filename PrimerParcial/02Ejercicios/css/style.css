@@ -182,3 +182,19 @@ font-size: 0.9rem;
 white-space: pre-wrap;
 min-height: 3rem;
 }
+
+.oculto {
+  display: none;
+}
+
+.contenedor {
+  text-align: center;
+  margin-top: 30px;
+}
+
+
+video {
+  max-width: 100px;
+  height: auto;
+  margin-top: 15px;
+}
