@@ -8,7 +8,7 @@ async function listar() {
     return filas;
 }
 
-// Registrar asistencia en el taller (Función solicitada)
+// Registrar asistencia en el taller 
 async function registrarAsistenciaEnElTaller({ usuario_id, taller_id, estado }) {
     const [info] = await pool.query(
         `INSERT INTO asistencia (usuario_id, taller_id, estado) VALUES (?, ?, ?)`,
@@ -20,7 +20,7 @@ async function registrarAsistenciaEnElTaller({ usuario_id, taller_id, estado }) 
     return filas[0];
 }
 
-// Consultar lista de asistencia por taller (Función solicitada)
+// Consultar lista de asistencia por taller 
 async function consultarListaDeAsistencia(taller_id) {
     const [filas] = await pool.query(
         `SELECT a.id, a.usuario_id, u.nombre as usuario_nombre, u.correo, a.taller_id, a.estado, a.fecha_registro 
