@@ -2,19 +2,16 @@ const crypto = require('node:crypto');
 const bcrypt = require('bcryptjs');
 const express = require('express');
 const pool = require('./db-local');
+const {
+    validarNombreInstructor,
+    validarNombreTaller,
+    validarNombreUsuario,
+} = require('./validaciones');
 
 const app = express();
 app.use(express.json());
 
 const PORT = Number(process.env.PORT) || 3001;
-
-function obtenerFechaLocal() {
-    const hoy = new Date();
-    const anio = hoy.getFullYear();
-    const mes = String(hoy.getMonth() + 1).padStart(2, '0');
-    const dia = String(hoy.getDate()).padStart(2, '0');
-    return `${anio}-${mes}-${dia}`;
-}
 
 const usuariosDemo = [
     {
@@ -216,12 +213,29 @@ app.post('/api/talleres', async (req, res) => {
     const nombreLimpio = typeof nombre === 'string' ? nombre.trim() : '';
     const descripcionLimpia =
         typeof descripcion === 'string' ? descripcion.trim() : '';
-    const fechaTaller =
-        typeof fecha === 'string' && fecha ? fecha : obtenerFechaLocal();
+    const fechaTaller = typeof fecha === 'string' ? fecha : '';
+    const instructorLimpio =
+        typeof instructor === 'string' ? instructor.trim() : '';
     const cupoTaller = Number(cupo);
 
     if (!nombreLimpio) {
         return res.status(400).json({ error: 'El nombre del taller es obligatorio' });
+    }
+    if (!validarNombreTaller(nombreLimpio)) {
+        return res.status(400).json({
+            error: 'El nombre del taller no puede superar los 150 caracteres',
+        });
+    }
+    if (!instructorLimpio) {
+        return res.status(400).json({ error: 'El instructor es obligatorio' });
+    }
+    if (!validarNombreInstructor(instructorLimpio)) {
+        return res.status(400).json({
+            error: 'El instructor debe tener máximo 100 caracteres y no contener números',
+        });
+    }
+    if (!fechaTaller) {
+        return res.status(400).json({ error: 'La fecha de inicio es obligatoria' });
     }
     if (!Number.isSafeInteger(cupoTaller) || cupoTaller < 1) {
         return res.status(400).json({ error: 'El cupo debe ser un entero mayor que cero' });
@@ -236,6 +250,20 @@ app.post('/api/talleres', async (req, res) => {
     ) {
         return res.status(400).json({ error: 'La fecha debe tener el formato AAAA-MM-DD' });
     }
+    const hoy = new Date();
+    const fechaActual =
+        `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, '0')}-` +
+        String(hoy.getDate()).padStart(2, '0');
+    if (fechaTaller < fechaActual) {
+        return res.status(400).json({
+            error: 'La fecha de inicio no puede ser anterior al día actual',
+        });
+    }
+    if (fechaTaller > '2030-12-31') {
+        return res.status(400).json({
+            error: 'La fecha de inicio no puede ser posterior al año 2030',
+        });
+    }
 
     const [result] = await pool.execute(
         `INSERT INTO talleres (nombre, descripcion, instructor, fecha, cupo)
@@ -243,9 +271,7 @@ app.post('/api/talleres', async (req, res) => {
         [
             nombreLimpio,
             descripcionLimpia || null,
-            typeof instructor === 'string' && instructor.trim()
-                ? instructor.trim()
-                : null,
+            instructorLimpio,
             fechaTaller,
             cupoTaller,
         ],
@@ -407,6 +433,11 @@ app.post('/api/usuarios', async (req, res) => {
             error: 'Nombre, correo, contraseña y boleta son obligatorios',
         });
     }
+    if (!validarNombreUsuario(nombreLimpio)) {
+        return res.status(400).json({
+            error: 'El nombre debe tener máximo 100 caracteres y no contener números',
+        });
+    }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correoLimpio)) {
         return res.status(400).json({ error: 'Escribe un correo válido' });
     }
@@ -452,11 +483,14 @@ app.post('/api/asistencias', async (req, res) => {
         });
     }
 
-    const nombreLimpio = String(nombre_alumno).trim();
+    const nombreLimpio =
+        typeof nombre_alumno === 'string' ? nombre_alumno.trim() : '';
     const boletaLimpia = String(boleta).trim();
     const tallerId = Number(taller_id);
-    if (!nombreLimpio) {
-        return res.status(400).json({ error: 'Escribe tu nombre.' });
+    if (!validarNombreUsuario(nombreLimpio)) {
+        return res.status(400).json({
+            error: 'El nombre debe tener máximo 100 caracteres y no contener números',
+        });
     }
     if (!/^\d{10}$/.test(boletaLimpia)) {
         return res.status(400).json({ error: 'La boleta debe tener 10 dígitos' });

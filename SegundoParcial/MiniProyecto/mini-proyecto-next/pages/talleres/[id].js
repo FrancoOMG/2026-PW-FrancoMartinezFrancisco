@@ -160,6 +160,9 @@ export default function DetalleTaller() {
             <input
               aria-label="Nombre completo"
               placeholder="Nombre completo"
+              title="El nombre no puede contener números."
+              maxLength={100}
+              pattern="[^0-9]*"
               value={nombre}
               onChange={(evento) => setNombre(evento.target.value)}
             />

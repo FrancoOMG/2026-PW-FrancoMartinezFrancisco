@@ -30,6 +30,11 @@ Conserva abierta esa terminal mientras uses el front.
 
 El front incluye inicio, talleres, usuarios, asistencia y perfil. Las rutas
 `POST /api/talleres` y `POST /api/usuarios` guardan nuevos registros en MySQL.
+Al crear un taller se requiere su fecha de inicio y el nombre del instructor
+(máximo 100 caracteres y sin números). La fecha no puede ser anterior al día
+actual ni posterior al 31 de diciembre de 2030.
+Los nombres de usuario aceptan hasta 100 caracteres y no pueden contener números;
+los nombres de taller aceptan hasta 150 caracteres y sí pueden contenerlos.
 En `/asistencia`, el registro corresponde a un usuario ya inscrito en el taller:
 se actualiza el estado y la fecha de su fila en `asistencia`, sin duplicarla.
 

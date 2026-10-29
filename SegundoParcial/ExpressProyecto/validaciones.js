@@ -24,9 +24,38 @@ function validarContrasena(contrasena) {
     return contrasena.length >= 8;
 }
 
+function validarNombreUsuario(nombre) {
+    if (typeof nombre !== 'string') return false;
+    const nombreLimpio = nombre.trim();
+    return (
+        nombreLimpio.length > 0 &&
+        nombreLimpio.length <= 100 &&
+        !/\p{N}/u.test(nombreLimpio)
+    );
+}
+
+function validarNombreTaller(nombre) {
+    if (typeof nombre !== 'string') return false;
+    const nombreLimpio = nombre.trim();
+    return nombreLimpio.length > 0 && nombreLimpio.length <= 150;
+}
+
+function validarNombreInstructor(nombre) {
+    if (typeof nombre !== 'string') return false;
+    const nombreLimpio = nombre.trim();
+    return (
+        nombreLimpio.length > 0 &&
+        nombreLimpio.length <= 100 &&
+        !/\p{N}/u.test(nombreLimpio)
+    );
+}
+
 // Siempre es necesario exportar las funciones para poder usarlas en los controladores
 module.exports = { 
     validarCorreo, 
     validarBoleta, 
-    validarContrasena 
+    validarContrasena,
+    validarNombreUsuario,
+    validarNombreTaller,
+    validarNombreInstructor,
 };

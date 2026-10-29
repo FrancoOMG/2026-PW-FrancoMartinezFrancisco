@@ -12,10 +12,15 @@ export default function Talleres() {
   const [busqueda, setBusqueda] = useState("");
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
+  const [fecha, setFecha] = useState("");
+  const [instructor, setInstructor] = useState("");
   const [cupo, setCupo] = useState("15");
   const [enviando, setEnviando] = useState(false);
   const [errorFormulario, setErrorFormulario] = useState("");
   const [exito, setExito] = useState("");
+
+  const hoy = new Date();
+  const fechaMinima = `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, "0")}-${String(hoy.getDate()).padStart(2, "0")}`;
 
   const cargarTalleres = useCallback(async () => {
     try {
@@ -40,15 +45,31 @@ export default function Talleres() {
     evento.preventDefault();
     setErrorFormulario("");
     setExito("");
+
+    if (/\p{N}/u.test(instructor.trim())) {
+      setErrorFormulario("El nombre del instructor no puede contener números.");
+      return;
+    }
+    if (fecha < fechaMinima) {
+      setErrorFormulario("La fecha de inicio no puede ser anterior al día actual.");
+      return;
+    }
+    if (fecha > "2030-12-31") {
+      setErrorFormulario("La fecha de inicio no puede ser posterior al año 2030.");
+      return;
+    }
+
     setEnviando(true);
 
     try {
       await pedirJSON("/talleres", {
         method: "POST",
-        body: JSON.stringify({ nombre, descripcion, cupo }),
+        body: JSON.stringify({ nombre, descripcion, fecha, instructor, cupo }),
       });
       setNombre("");
       setDescripcion("");
+      setFecha("");
+      setInstructor("");
       setCupo("15");
       setExito("Taller creado correctamente.");
       await cargarTalleres();
@@ -90,6 +111,28 @@ export default function Talleres() {
               <textarea
                 value={descripcion}
                 onChange={(evento) => setDescripcion(evento.target.value)}
+              />
+            </label>
+            <label className={gestion.campo}>
+              Fecha de inicio
+              <input
+                required
+                type="date"
+                min={fechaMinima}
+                max="2030-12-31"
+                value={fecha}
+                onChange={(evento) => setFecha(evento.target.value)}
+              />
+            </label>
+            <label className={gestion.campo}>
+              Instructor
+              <input
+                required
+                maxLength={100}
+                pattern="[^0-9]*"
+                title="El nombre del instructor no puede contener números."
+                value={instructor}
+                onChange={(evento) => setInstructor(evento.target.value)}
               />
             </label>
             <label className={gestion.campo}>

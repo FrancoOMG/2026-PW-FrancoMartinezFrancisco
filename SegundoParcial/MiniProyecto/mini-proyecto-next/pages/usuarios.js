@@ -75,6 +75,8 @@ export default function Usuarios() {
                 autoComplete="name"
                 required
                 maxLength={100}
+                pattern="[^0-9]*"
+                title="El nombre no puede contener números."
                 value={nombre}
                 onChange={(evento) => setNombre(evento.target.value)}
               />
