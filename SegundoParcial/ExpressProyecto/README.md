@@ -9,12 +9,18 @@ columna `instructor` a `talleres` si todavía no está creada.
 
 1. Inicia el servicio MySQL.
 2. Ejecuta el script SQL que crea `cecyt9_local` y sus tablas.
-3. En PowerShell, desde esta carpeta, configura las credenciales de tu MySQL y
-   arranca el servidor:
+3. Copia el ejemplo de configuración local y escribe una sola vez la contraseña
+   de MySQL en ese archivo:
 
 ```powershell
-$env:DB_USER = "root"
-$env:DB_PASSWORD = "tu_contraseña_de_MySQL"
+Copy-Item db-local.credentials.example.json db-local.credentials.json
+notepad db-local.credentials.json
+```
+
+`db-local.credentials.json` está excluido de Git; no compartas ni subas tu
+contraseña. Después, inicia el backend desde esta carpeta:
+
+```powershell
 npm start
 ```
 
