@@ -1,0 +1,35 @@
+.encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 14px 16px;
+  color: #fff;
+  background: #6b1d3a;
+}
+
+.navegacion {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+}
+
+.navegacion a {
+  font-weight: 600;
+}
+
+.navegacion a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+@media (max-width: 480px) {
+  .encabezado {
+    justify-content: flex-start;
+  }
+
+  .navegacion {
+    gap: 12px;
+  }
+}

@@ -2,6 +2,14 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+### Front de talleres
+
+Las páginas `/talleres`, `/talleres/[id]` y `/perfil` consumen el backend de la
+guía. Next reenvía `/api/*` a `http://localhost:3001/api/*`; puedes cambiar el
+host con la variable `BACKEND_URL`. El backend debe exponer `GET /api/talleres`,
+`GET /api/talleres/:id`, `GET /api/talleres/:id/asistencias`,
+`GET /api/usuarios` y `POST /api/asistencias`.
+
 First, run the development server:
 
 ```bash
