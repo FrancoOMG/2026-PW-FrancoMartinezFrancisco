@@ -1,0 +1,59 @@
+.presentacion {
+  margin-bottom: 28px;
+}
+
+.eyebrow {
+  margin-bottom: 8px;
+  color: #6b1d3a;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.presentacion h1 {
+  margin-bottom: 10px;
+}
+
+.presentacion > p:last-child {
+  max-width: 620px;
+  line-height: 1.6;
+}
+
+.secciones {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.tarjeta {
+  display: flex;
+  min-height: 150px;
+  flex-direction: column;
+  padding: 18px;
+  border: 1px solid #e5e7eb;
+  border-top: 4px solid #6b1d3a;
+  border-radius: 8px;
+  background: #fff;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.tarjeta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+}
+
+.tarjeta h2 {
+  margin: 0 0 8px;
+}
+
+.tarjeta p {
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.tarjeta span {
+  margin-top: auto;
+  color: #6b1d3a;
+  font-weight: 700;
+}

@@ -1,0 +1,223 @@
+/* RESET */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* BODY */
+body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f1f3f6;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* CONTENEDOR PRINCIPAL */
+.container{
+    width: 90%;
+    max-width: 1200px;
+    margin: 30px auto;
+}
+
+/* HEADER */
+.header{
+    background: #0f1c3f;
+    color: white;
+    text-align: center;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+}
+
+.header:hover{
+    background: #16295c;
+    transform: translateY(-3px);
+}
+
+.header h1{
+    font-size: 2rem;
+    letter-spacing: 1px;
+}
+
+/* INTRODUCCION */
+.content{
+    background: white;
+    margin-top: 20px;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+}
+
+.content:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+/* SECCION TABLAS */
+.tablas_ejercicios{
+    margin-top: 30px;
+}
+
+.table_content{
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+}
+
+/* TABLA */
+.tabla{
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+/* ENCABEZADOS */
+.tabla thead{
+    background: #0f1c3f;
+    color: white;
+}
+
+.tabla th{
+    padding: 15px;
+    text-align: left;
+    font-size: 1rem;
+}
+
+/* FILAS */
+.tabla td{
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    transition: all 0.3s ease;
+}
+
+/* EFECTO AL PASAR EL RATON */
+.tabla tbody tr{
+    transition: all 0.3s ease;
+}
+
+.tabla tbody tr:hover{
+    background-color: #e8eefc;
+    transform: scale(1.01);
+}
+
+/* ENLACES */
+.tabla a{
+    display: inline-block;
+    text-decoration: none;
+    background: #0f1c3f;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.tabla a:hover{
+    background: #2e5fff;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(46,95,255,0.3);
+}
+
+/* ANIMACION DE APARICION */
+.header,
+.content,
+.table_content{
+    animation: aparecer 0.8s ease;
+}
+
+@keyframes aparecer{
+    from{
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+
+    .header h1{
+        font-size: 1.5rem;
+    }
+
+    .tabla{
+        font-size: 0.9rem;
+    }
+
+    .tabla th,
+    .tabla td{
+        padding: 10px;
+    }
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, Arial, sans-serif;
+    color: #1f2937;
+    background-color: #f9fafb;
+}
+
+header {
+    background-color: #0f172a;
+    color: #ffffff;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+header a {
+    color: #ffffff;
+}
+
+main{
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+footer{
+    text-align: center;
+    padding: 1rem;
+    color: #6b7280;
+    font-size: 0.875rem;
+}
+
+/* Catalogo de Talleres */
+
+.catalogo {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.tarjeta {
+    padding: 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    background-color: #ffffff;
+}
+
+.tarjeta h2 {
+    margin-top:0;
+    font-size: 1.1rem;
+}
+
+.tarjeta a {
+    color:#0f172a;
+    text-decoration: none;
+}
+
+.tarjeta a:hover {
+    text-decoration: underline;
+}
